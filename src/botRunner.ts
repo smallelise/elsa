@@ -13,6 +13,8 @@ import {
 } from 'pandora-common';
 import type { BotId, BotShardConnectionInfo } from 'pandora-common/bots';
 import { ENV } from './config.ts';
+import {ChallengeTypes} from "./enums/challengeType.ts";
+
 
 const { ELSA_ID, ELSA_SHARD_BASE_ADDRESS } = ENV;
 const logger = GetLogger('Elsa');
