@@ -10,11 +10,9 @@ import {
 } from 'pandora-api/bots';
 import {
 	Assert, GetLogger, type BotChatMessage, type CharacterId, type ChatMessageChatNPC, type SpaceId,
-	AssetFrameworkGlobalState, AssetManager
 } from 'pandora-common';
 import type { BotId, BotShardConnectionInfo } from 'pandora-common/bots';
 import { ENV } from './config.ts';
-import {forEach} from "lodash-es";
 import {ChallengeTypes} from "./enums/challengeType.ts";
 
 const { ELSA_ID, ELSA_SHARD_BASE_ADDRESS } = ENV;
