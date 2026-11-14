@@ -15,6 +15,7 @@ import type { BotId, BotShardConnectionInfo } from 'pandora-common/bots';
 import { ENV } from './config.ts';
 import {ChallengeTypes} from "./enums/challengeType.ts";
 
+
 const { ELSA_ID, ELSA_SHARD_BASE_ADDRESS } = ENV;
 const logger = GetLogger('Elsa');
 
@@ -69,83 +70,7 @@ export class Instance {
 					return true;
 				}),
 			})
-			.registerCommand({
-				key: 'init',
-				description: 'Select your strengths and weaknesses',
-				usage: '<perception> <strength> <dexterity> <intelligence> <constitution>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					let vals: number[] = rawText.split(' ').map(value => parseInt(value));
-
-					if(vals.length !== 5){
-						await this.whisper(character, 'Usage: !init <perception> <strength> <dexterity> <intelligence> <constitution>');
-						return false;
-					}
-
-					if (vals.some(val => isNaN(val))) {
-						await this.whisper(character, 'Please provide values each separated with a "whitespace". Example <0 1 -5 ...>');
-						return false;
-					}
-
-
-
-					return true;
-				}),
-			})
-			.registerCommand({
-				key: 'perception',
-				description: 'Challenge your friends',
-				usage: '<cChar> <Text>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					return await this.reqChallenge(ChallengeTypes.Perception, character, rawText);
-				}),
-			})
-			.registerCommand({
-				key: 'strength',
-				description: 'Challenge your friends',
-				usage: '<cChar> <Text>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					return await this.reqChallenge(ChallengeTypes.Strength, character, rawText);
-				}),
-			})
-			.registerCommand({
-				key: 'dexterity',
-				description: 'Challenge your friends',
-				usage: '<cChar> <Text>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					return await this.reqChallenge(ChallengeTypes.Dexterity, character, rawText);
-				}),
-			})
-			.registerCommand({
-				key: 'intelligence',
-				description: 'Challenge your friends',
-				usage: '<cChar> <Text>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					return await this.reqChallenge(ChallengeTypes.Intelligence, character, rawText);
-				}),
-			})
-			.registerCommand({
-				key: 'constitution',
-				description: 'Challenge your friends',
-				usage: '<cChar> <Text>',
-				handler: CreateBotRepositoryCommand().handler({restArgName: 'text'}, async ({ character }, _args, rawText): Promise<boolean> => {
-					return await this.reqChallenge(ChallengeTypes.Constitution, character, rawText);
-				}),
-			});
 	}
-
-	//endregion
-
-	//region Challenge Provider
-
-	// Abilities:
-	private reqChallenge(type: ChallengeTypes , requester: BotSpaceCharacter, rawText: string): Promise<boolean> {
-
-		// Handle Logic
-
-		return Promise.resolve(true);
-	}
-
-
 	//endregion
 
 	//region Sending
@@ -213,14 +138,6 @@ class ElsaBotInstance implements SimpleBotOrchestratorBotInstance {
 
 			firstLoad = false;
 			logger.info('Space loaded successfully', bot, space);
-
-
-
-			// Or you can read current state anytime
-			const character = spaceState.globalState.characters.get('c4');
-			if (character != null) {
-				logger.info(`Character ${character.id} position: ${JSON.stringify(character.position)}`);
-			}
 		});
 
 		this.botConnection.updateConnectionInfo(connectionInfo);
