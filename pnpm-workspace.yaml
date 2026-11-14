@@ -1,0 +1,20 @@
+allowBuilds:
+  pandora-common: true
+  pandora-common@git+https://github.com/Project-Pandora-Game/pandora.git: true
+  pandora-api: true
+  pandora-api@git+https://github.com/Project-Pandora-Game/pandora.git: true
+  unrs-resolver: true
+  '@parcel/watcher': true
+
+allowUnusedPatches: false
+injectWorkspacePackages: false
+minimumReleaseAge: 2880
+minimumReleaseAgeExclude:
+  - pandora-common
+  - pandora-api
+nodeOptions: --no-warnings=ExperimentalWarning --experimental-vm-modules
+autoInstallPeers: false
+strictPeerDependencies: true
+updateNotifier: false
+verifyDepsBeforeRun: install
+trustLockfile: true
